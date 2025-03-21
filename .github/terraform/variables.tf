@@ -1,23 +1,40 @@
 /**
- * Copyright 2024 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Updated for AWS Terraform deployment
+ * Replaces Google Cloud-specific variables with AWS equivalents
  */
 
-# This file lists variables that you can set using the -var flag during "terraform apply".
-# Example: terraform apply -var project_id="${PROJECT_ID}"
-
-variable "project_id" {
+variable "region" {
   type        = string
-  description = "The Google Cloud project ID."
+  default     = "us-east-1"
+  description = "The AWS region to deploy resources in."
+}
+
+variable "vpc_cidr" {
+  type        = string
+  default     = "10.0.0.0/16"
+  description = "CIDR block for the VPC."
+}
+
+variable "public_subnets" {
+  type        = list(string)
+  default     = ["10.0.101.0/24", "10.0.102.0/24"]
+  description = "List of public subnet CIDR blocks."
+}
+
+variable "private_subnets" {
+  type        = list(string)
+  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+  description = "List of private subnet CIDR blocks."
+}
+
+variable "ecs_cluster_name" {
+  type        = string
+  default     = "microservices-cluster"
+  description = "Name of the ECS cluster."
+}
+
+variable "alb_name" {
+  type        = string
+  default     = "microservices-alb"
+  description = "Name of the Application Load Balancer."
 }
